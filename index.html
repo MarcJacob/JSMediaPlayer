@@ -2,10 +2,39 @@
 
 <html>
 <head>
-    
+    <link type="text/css" rel="stylesheet" href="CSS/style.css"/>
 </head>
     
 <body>
-    
+    <section id="mainSection">
+        <section id="media">
+            <video width=100% height=100%>
+            </video>
+            <div id="controls">
+                <button id="pauseControl">
+                    Pause
+                </button>
+                <progress value="0" max="100" id="timeControl">
+                </div>
+            </div>
+        </section>
+        <section id="playlistMenu">
+            <div id="list">
+            </div>
+            <div id="playlistControls">
+                <button id="playlistAdd" width=100%>
+                    +
+                </button>
+                <input type=text>
+            </div>
+        </section>
+        <script src="js/media.js"></script>
+        <script src="js/playlist.js"></script>
+    </section>
+    <footer>
+    <h1>
+    Réalisé par Marc Jacob    
+    </h1>
+    </footer>
 </body>
 </html>
