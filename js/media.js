@@ -24,6 +24,9 @@ function setElementAsSource(element) {
     // get element type
     var splitString = element.children.item(3).value.split(".");
     var extension = splitString[splitString.length - 1];
+    if (videoScreen.children.item(0) === null) {
+        videoScreen.appendChild(document.createElement("source"));
+    }
     videoScreen.children.item(0).src = element.children.item(3).value;
     currentElement = videoScreen.children.item(0).src;
     videoScreen.children.item(0).type = "video/mp4";

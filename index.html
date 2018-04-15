@@ -3,15 +3,14 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="CSS/style.css"/>
+    <title>Lecteur multimédia</title>
 </head>
     
 <body>
     <section id="mainSection">
         <section id="media">
-            <video width=100% height=100%>
-                <source>
+            <video>
             </video>
-            <img id="audioImage" hidden>
             <div id="controls">
                 <button>
                     Pause
@@ -19,15 +18,14 @@
                 <button>
                     Skip
                 </button>
-                <progress value="0" max="100" id="timeControl">
-                </div>
+                <progress value="0" max="100" id="timeControl"></progress>
             </div>
         </section>
         <section id="playlistMenu">
             <div id="list">
             </div>
             <div id="playlistControls">
-                <button width=100%>
+                <button>
                     +
                 </button>
                 <input type=text>
