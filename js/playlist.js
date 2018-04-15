@@ -29,48 +29,48 @@ listElement.children.item(2).textContent = "+";
 
 // Fonctions de manipulation des éléments de la playlist
 
-function onPlaylistElementDelete(element)
-{
+function onPlaylistElementDelete(element) {
+    "use strict";
+    if (list.children.item(0) === element) {
+        var playlistFirstElementRemovedEvent = new Event("PlaylistFirstElementRemoved");
+        playlistFirstElementRemovedEvent.element = element;
+        document.dispatchEvent(playlistFirstElementRemovedEvent);
+    }
     list.removeChild(element);
-    // TODO : Vérifier que l'élément ne soit pas en cours
-    // de lecture. Si c'est le cas, interrompre la lecture
-    // et passer au prochain élément.
 }
 
-function onPlaylistElementPriorityUp(element)
-{
-    if (list.children.length > element.priority+1)
-        {
-            console.log(element.priority);
-            list.insertBefore(list.children.item(element.priority+1), element);
-            list.children.item(element.priority).priority--;
-            element.priority++;
-        }
+function onPlaylistElementPriorityUp(element) {
+    "use strict";
+    if (list.children.length > element.priority + 1) {
+        console.log(element.priority);
+        list.insertBefore(list.children.item(element.priority + 1), element);
+        list.children.item(element.priority).priority -= 1;
+        element.priority += 1;
+    }
 }
 
-function onPlaylistElementPriorityDown(element)
-{
-    if (element.priority > 0)
-        {
-            list.insertBefore(element, list.children.item(element.priority-1));
-            list.children.item(element.priority).priority++;
-            element.priority--;
-        }
+function onPlaylistElementPriorityDown(element) {
+    "use strict";
+    if (element.priority > 0) {
+        list.insertBefore(element, list.children.item(element.priority - 1));
+        list.children.item(element.priority).priority += 1;
+        element.priority -= 1;
+    }
 }
 
 // Renvoi un nouvel élément de playlist contenant le lien vers l'élément ajouté. L'ajoute à l'élément "list".
-function createListElement(link)
-{
-    var newElement = listElement.cloneNode(true);
+function createListElement(link) {
+    "use strict";
+    var newElement = listElement.cloneNode(true), playlistElementCreatedEvent = new Event("PlaylistElementCreated");
     newElement.children.item(3).textContent = link;
     newElement.children.item(3).readOnly = true;
-    newElement.children.item(0).addEventListener("click", function() {onPlaylistElementDelete(newElement);});
-    newElement.children.item(1).addEventListener("click", function() {onPlaylistElementPriorityUp(newElement);});
-    newElement.children.item(2).addEventListener("click", function() {onPlaylistElementPriorityDown(newElement);});
+    newElement.children.item(0).addEventListener("click", function () {onPlaylistElementDelete(newElement); });
+    newElement.children.item(1).addEventListener("click", function () {onPlaylistElementPriorityUp(newElement); });
+    newElement.children.item(2).addEventListener("click", function () {onPlaylistElementPriorityDown(newElement); });
     newElement.priority = list.children.length;
     console.log("Created element with priority " + newElement.priority);
     list.appendChild(newElement);
-    var playlistElementCreatedEvent = new Event("PlaylistElementCreated");
+    
     playlistElementCreatedEvent.element = newElement;
     document.dispatchEvent(playlistElementCreatedEvent);
     return newElement;
@@ -79,22 +79,21 @@ function createListElement(link)
 
 
 
+
+
 //____________________________________________________
 
 // Vérifie si du texte est présent dans le textArea contenant le lien.
 // Si du texte se trouve dedans, alors un nouvel élément est ajouté à la playlist avec le lien indiqué dans le textArea. Le contenu du textArea est vidé.
-function onPlaylistAddButtonClicked()
-{
+function onPlaylistAddButtonClicked() {
+    "use strict";
     var link = controls.children.item(1).value;
-    if (link === null || list === undefined || link.length > 0)
-        {
-            createListElement(link);
-            controls.children.item(1).value = "";
-        }
-    else
-        {
-            console.log("ERREUR : Pas de liens !");
-        }
+    if (link === null || list === undefined || link.length > 0) {
+        createListElement(link);
+        controls.children.item(1).value = "";
+    } else {
+        console.log("ERREUR : Pas de liens !");
+    }
 }
 
 controls.children.item(0).addEventListener("click", onPlaylistAddButtonClicked);
